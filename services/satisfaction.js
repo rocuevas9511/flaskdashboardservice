@@ -6,17 +6,17 @@ const getAllSatisfactions = (req, res) => {
   connect(async db => {
     var dbo = db.db(DBNAME);
     var sentimentResults = await dbo.collection(TABLE_NAME).find({ "Metric": "AVG Text Sentiment" })
-      .limit(70)
+      .limit(100)
       .sort({ CalculationDate: -1 })
       .toArray();
 
     var imageResults = await dbo.collection(TABLE_NAME).find({ "Metric": "Facial Expression Rate" })
-      .limit(70)
+      .limit(100)
       .sort({ CalculationDate: -1 })
       .toArray()
 
     var imageResults = await dbo.collection(TABLE_NAME).find({ "Metric": "Facial Expression Count" })
-      .limit(70)
+      .limit(100)
       .sort({ CalculationDate: -1 })
       .toArray()
     res.send(sentimentResults.concat(imageResults))
