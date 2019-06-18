@@ -1,4 +1,4 @@
-import express from 'express'
+var express = require('express')
 const app = express();
 var MongoClient = require('mongodb').MongoClient;
 const password = encodeURIComponent("zhQkmspqWuq3EHVVO8ht5kESJgxgIoDHjrjzW8tgXizjYjXxdI889SKlbA3hngkS9CXZ8kWzNGTzhgd88t8fiQ==")
