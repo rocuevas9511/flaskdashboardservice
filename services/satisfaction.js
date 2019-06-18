@@ -5,7 +5,10 @@ const TABLE_NAME = "Metrics";
 const getAllSatisfactions = (req, res) => {
   connect(db => {
     var dbo = db.db(DBNAME);
-    dbo.collection(TABLE_NAME).find({}).toArray(function (err, result) {
+    dbo.collection(TABLE_NAME).find({})
+      .limit(100)
+      .sort({CalculationDate : -1})
+      .toArray(function (err, result) {
       if (err) throw err;
       res.send(result)
       db.close();
