@@ -2,17 +2,22 @@
 const connect = require('../db/db')
 const DBNAME = "globaldb";
 const TABLE_NAME = "Metrics";
-const getAllSatisfactions = (req, res) => {
-  connect(db => {
+const getAllSatisfactions =  (req, res) => {
+  connect( async db => {
     var dbo = db.db(DBNAME);
-    dbo.collection(TABLE_NAME).find({})
+    var sentimentResults = await dbo.collection(TABLE_NAME).find({ "Metric": "AVG Text Sentiment"})
       .limit(100)
       .sort({CalculationDate : -1})
-      .toArray(function (err, result) {
-      if (err) throw err;
-      res.send(result)
+      .toArray();
+
+    var imageResults = await dbo.collection(TABLE_NAME).find({ "Metric": "Facial Expression Count"})
+      .limit(100)
+      .sort({CalculationDate : -1})
+      .toArray()
+  
+      res.send(sentimentResults.concat(imageResults))
       db.close();
-    });
+    
   })
 }
 
